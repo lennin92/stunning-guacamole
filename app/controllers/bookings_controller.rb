@@ -24,8 +24,9 @@ class BookingsController < ApplicationController
         activity: @activity[:name],
         client: @current_user[:username],
         start: @schedule[:start],
-        end: @schedule[:end]
-      ).new_booking_email.deliver_now
+        end: @schedule[:end],
+        admin_email:  @activity.user.email
+      ).new_booking_email.deliver_later
       render json: @booking, status: :created, location: @booking
     else
       render json: @booking.errors, status: :unprocessable_entity
