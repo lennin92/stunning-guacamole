@@ -16,7 +16,7 @@ class ActivitiesController < ApplicationController
   def create
     @current_user = AuthorizeApiRequestCommand.call(request.headers).result
 
-    if !@current_user[admin]
+    if !@current_user[:admin]
       render json: {"error": "Not an admin"}, status: :unauthorized
       return
     end
